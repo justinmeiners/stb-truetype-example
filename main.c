@@ -1,5 +1,8 @@
-/* By Justin Meiners (2013) */
-/* font and image utilties from nothings.org */
+/*
+ By: Justin Meiners
+
+ Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
