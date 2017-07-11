@@ -16,7 +16,7 @@ int main(int argc, const char * argv[])
     long size;
     unsigned char* fontBuffer;
     
-    FILE* fontFile = fopen("font.ttf", "rb");
+    FILE* fontFile = fopen("font/cmunrm.ttf", "rb");
     fseek(fontFile, 0, SEEK_END);
     size = ftell(fontFile); /* how long is the file ? */
     fseek(fontFile, 0, SEEK_SET); /* reset */
