@@ -54,6 +54,11 @@ int main(int argc, const char * argv[])
     int i;
     for (i = 0; i < strlen(word); ++i)
     {
+        /* how wide is this character */
+        int ax;
+		int lsb;
+        stbtt_GetCodepointHMetrics(&info, word[i], &ax, &lsb);
+
         /* get bounding box for character (may be offset to account for chars that dip above or below the line */
         int c_x1, c_y1, c_x2, c_y2;
         stbtt_GetCodepointBitmapBox(&info, word[i], scale, scale, &c_x1, &c_y1, &c_x2, &c_y2);
@@ -62,12 +67,10 @@ int main(int argc, const char * argv[])
         int y = ascent + c_y1;
         
         /* render character (stride and offset is important here) */
-        int byteOffset = x + (y  * b_w);
+        int byteOffset = x + (lsb * scale) + (y * b_w);
         stbtt_MakeCodepointBitmap(&info, bitmap + byteOffset, c_x2 - c_x1, c_y2 - c_y1, b_w, scale, scale, word[i]);
-        
-        /* how wide is this character */
-        int ax;
-        stbtt_GetCodepointHMetrics(&info, word[i], &ax, 0);
+
+        /* advance x */
         x += ax * scale;
         
         /* add kerning */
