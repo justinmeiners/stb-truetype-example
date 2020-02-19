@@ -36,12 +36,12 @@ int main(int argc, const char * argv[])
     int l_h = 64; /* line height */
 
     /* create a bitmap for the phrase */
-    unsigned char* bitmap = malloc(b_w * b_h);
+    unsigned char* bitmap = calloc(b_w * b_h, sizeof(unsigned char));
     
     /* calculate font scaling */
     float scale = stbtt_ScaleForPixelHeight(&info, l_h);
 
-    char* word = "how are you?";
+    char* word = "the quick brown fox";
     
     int x = 0;
        
