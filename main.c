@@ -48,8 +48,8 @@ int main(int argc, const char * argv[])
     int ascent, descent, lineGap;
     stbtt_GetFontVMetrics(&info, &ascent, &descent, &lineGap);
     
-    ascent *= scale;
-    descent *= scale;
+    ascent = roundf(ascent * scale);
+    descent = roundf(descent * scale);
     
     int i;
     for (i = 0; i < strlen(word); ++i)
@@ -67,16 +67,16 @@ int main(int argc, const char * argv[])
         int y = ascent + c_y1;
         
         /* render character (stride and offset is important here) */
-        int byteOffset = x + (lsb * scale) + (y * b_w);
+        int byteOffset = x + roundf(lsb * scale) + (y * b_w);
         stbtt_MakeCodepointBitmap(&info, bitmap + byteOffset, c_x2 - c_x1, c_y2 - c_y1, b_w, scale, scale, word[i]);
 
         /* advance x */
-        x += ax * scale;
+        x += roundf(ax * scale);
         
         /* add kerning */
         int kern;
         kern = stbtt_GetCodepointKernAdvance(&info, word[i], word[i + 1]);
-        x += kern * scale;
+        x += roundf(kern * scale);
     }
     
     /* save out a 1 channel image */
