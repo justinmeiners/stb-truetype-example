@@ -8,6 +8,8 @@
 #define STB_TRUETYPE_IMPLEMENTATION 
 #include "stb_truetype.h" /* http://nothings.org/stb/stb_truetype.h */
 
+
+
 int main(int argc, const char * argv[])
 {
     /* load font file */
@@ -56,8 +58,9 @@ int main(int argc, const char * argv[])
     {
         /* how wide is this character */
         int ax;
-		int lsb;
+	int lsb;
         stbtt_GetCodepointHMetrics(&info, word[i], &ax, &lsb);
+        /* (Note that each Codepoint call has an alternative Glyph version which caches the work required to lookup the character word[i].) */
 
         /* get bounding box for character (may be offset to account for chars that dip above or below the line */
         int c_x1, c_y1, c_x2, c_y2;
@@ -81,6 +84,13 @@ int main(int argc, const char * argv[])
     
     /* save out a 1 channel image */
     stbi_write_png("out.png", b_w, b_h, 1, bitmap, b_w);
+	
+    /*
+     Note that this example writes each character directly into the target image buffer.
+     The "right thing" to do for fonts that have overlapping characters is
+     MakeCodepointBitmap to a temporary buffer and then alpha blend that onto the target image.
+     See the stb_truetype.h header for more info.
+    */
     
     free(fontBuffer);
     free(bitmap);
