@@ -62,11 +62,11 @@ int main(int argc, const char * argv[])
         stbtt_GetCodepointHMetrics(&info, word[i], &ax, &lsb);
         /* (Note that each Codepoint call has an alternative Glyph version which caches the work required to lookup the character word[i].) */
 
-        /* get bounding box for character (may be offset to account for chars that dip above or below the line */
+        /* get bounding box for character (may be offset to account for chars that dip above or below the line) */
         int c_x1, c_y1, c_x2, c_y2;
         stbtt_GetCodepointBitmapBox(&info, word[i], scale, scale, &c_x1, &c_y1, &c_x2, &c_y2);
         
-        /* compute y (different characters have different heights */
+        /* compute y (different characters have different heights) */
         int y = ascent + c_y1;
         
         /* render character (stride and offset is important here) */
